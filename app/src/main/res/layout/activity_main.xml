@@ -50,7 +50,7 @@
         android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvStars"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Stars" />
@@ -62,31 +62,31 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/rb1"
+            android:id="@+id/rg1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1" />
 
         <RadioButton
-            android:id="@+id/rb2"
+            android:id="@+id/rg2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2" />
 
         <RadioButton
-            android:id="@+id/rb3"
+            android:id="@+id/rg3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3" />
 
         <RadioButton
-            android:id="@+id/rb4"
+            android:id="@+id/rg4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="4" />
 
         <RadioButton
-            android:id="@+id/rb5"
+            android:id="@+id/rg5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="5" />

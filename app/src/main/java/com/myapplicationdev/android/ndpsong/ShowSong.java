@@ -35,15 +35,18 @@ public class ShowSong extends AppCompatActivity {
         al = new ArrayList<Songs>();
         aa = new ArrayAdapter<Songs>(this,
                 android.R.layout.simple_list_item_1, al);
-        lv.setAdapter(aa);
+
+
+
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long identity) {
                 Songs song = al.get(position);
                 Intent i = new Intent(ShowSong.this, EditActivity.class);
-                i.putExtra("data",data);
+                i.putExtra("data", song);
                 startActivity(i);
+
             }
         });
 
@@ -51,6 +54,7 @@ public class ShowSong extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DBHelper dbh = new DBHelper(ShowSong.this);
+
 
                 dbh.close();
             }

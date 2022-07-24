@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,11 +39,11 @@ public class MainActivity extends AppCompatActivity {
         tvYear = findViewById(R.id.tvYear);
         etYear = findViewById(R.id.etYear);
         radioGroup=findViewById(R.id.radiogroup);
-        rb1=findViewById(R.id.rb1);
-        rb2=findViewById(R.id.rb2);
-        rb3=findViewById(R.id.rb3);
-        rb4=findViewById(R.id.rb4);
-        rb5=findViewById(R.id.rb5);
+        rb1=findViewById(R.id.rg1);
+        rb2=findViewById(R.id.rg2);
+        rb3=findViewById(R.id.rg3);
+        rb4=findViewById(R.id.rg4);
+        rb5=findViewById(R.id.rg5);
         lv = findViewById(R.id.lv);
 
         Intent i = getIntent();
@@ -70,13 +69,32 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                String data = etSongT.getText().toString();
-                String data1 = etSinger.getText().toString();
-                String data2 = etYear.getText().toString();
-                int data3 = radioGroup.getCheckedRadioButtonId();
-
                 DBHelper dbh = new DBHelper(MainActivity.this);
-                long inserted_id = dbh.insertSong(data,data1,data2,data3);
+
+                String title = etSongT.getText().toString();
+                String singer = etSinger.getText().toString();
+                int year = Integer.parseInt(etYear.getText().toString());
+                int rg = 1;
+
+                switch (radioGroup.getCheckedRadioButtonId()) {
+                    case R.id.rg1:
+                        rg = 1;
+                        break;
+                    case R.id.rg2:
+                        rg = 2;
+                        break;
+                    case R.id.rg3:
+                        rg = 3;
+                        break;
+                    case R.id.rg4:
+                        rg = 4;
+                        break;
+                    case R.id.rg5:
+                        rg = 5;
+                        break;
+                }
+
+                long inserted_id = dbh.insertSong(title,singer,year,rg);
 
                 if (inserted_id != -1){
                     al.clear();
@@ -86,5 +104,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
+
+
 }

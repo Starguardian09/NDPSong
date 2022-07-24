@@ -8,8 +8,7 @@ public class Songs implements Serializable {
     private String singers;
     private String year;
     private int stars;
-    private Songs data;
-
+    private String songContent;
 
     public Songs(int id, String title, String singers,String year,int stars) {
         this.id = id;
@@ -17,6 +16,7 @@ public class Songs implements Serializable {
         this.singers = singers;
         this.year = year;
         this.stars = stars;
+
     }
 
     public int getId() { return id; }
@@ -24,8 +24,8 @@ public class Songs implements Serializable {
     public String getSingers() { return singers; }
     public String getYear() { return year; }
     public int getStars() { return stars; }
-    public void setTitle(String title) { this.title = title; }
-    public void setSingers(String singers) { this.singers = singers; }
+    public String getSongContent(){return songContent;}
+    public void setSongContent(String s){return;}
 
     @Override
     public String toString() {

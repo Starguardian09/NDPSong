@@ -6,7 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
+import java.time.Year;
+import java.util.ArrayList;
 import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -32,6 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + COLUMN_TITLE + " TEXT," +
                 COLUMN_SINGER + "TEXT1," + COLUMN_YEAR + "TEXT2" + COLUMN_STAR + "TEXT3)";
         db.execSQL(createSongTableSql);
+        Log.i("info","created tables");
     }
 
     @Override

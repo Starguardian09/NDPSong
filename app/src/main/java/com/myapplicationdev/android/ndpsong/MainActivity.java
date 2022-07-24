@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Songs> al;
     ListView lv;
     ArrayAdapter<Songs> aa;
-
+    Songs data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         lv = findViewById(R.id.lv);
 
         Intent i = getIntent();
-        Songs data = (Songs) i.getSerializableExtra("data");
+        data = (Songs) i.getSerializableExtra("data");
 
         al = new ArrayList<Songs>();
         aa = new ArrayAdapter<Songs>(this,

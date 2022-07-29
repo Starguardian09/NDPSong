@@ -7,14 +7,16 @@
     android:orientation="vertical"
     tools:context=".ShowSong">
 
-    <Button
+    <ToggleButton
         android:id="@+id/btnShowSong"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Show Song" />
+        android:text="ToggleButton"
+        android:textOff="Show 5 star songs"
+        android:textOn="Show all songs" />
 
     <ListView
-        android:id="@+id/lv"
+        android:id="@+id/lv2"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

@@ -1,10 +1,11 @@
 package com.myapplicationdev.android.ndpsong;
 
+import static java.lang.Integer.parseInt;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,85 +13,108 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.myapplicationdev.android.ndpsong.DBHelper;
+import com.myapplicationdev.android.ndpsong.ShowSong;
+
 public class EditActivity extends AppCompatActivity {
-    Button btnUpdate, btnDelete, btnCancel;
-    TextView tvSongT, tvSinger, tvYear, tvID,tvStars;
-    EditText etSongT, etSinger,etYear;
+
+    TextView id;
+    EditText etId, etSongTitle, etSinger, etYear;
     RadioGroup radioGroup;
-    RadioButton rg0,rg1,rg2,rg3,rg4,rg5;
-    Songs data;
+    RadioButton rating, star1, star2, star3, star4, star5;
+    Button btnUpdate, btnDelete, btnCancel;
+    com.myapplicationdev.android.ndpsong.Songs data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-        btnUpdate = findViewById(R.id.btnUpdate);
+        id = findViewById(R.id.tvID);
+        etId = findViewById(R.id.etId);
+        etSongTitle = findViewById(R.id.etSongT);
+        etSinger = findViewById(R.id.etSinger);
+        etYear = findViewById(R.id.etYear);
+        radioGroup = findViewById(R.id.radiogroup);
+        star1 = findViewById(R.id.rg1);
+        star2 = findViewById(R.id.rg2);
+        star3 = findViewById(R.id.rg3);
+        star4 = findViewById(R.id.rg4);
+        star5 = findViewById(R.id.rg5);
+        btnUpdate = findViewById(R.id.btnAdd);
         btnDelete = findViewById(R.id.btnDelete);
         btnCancel = findViewById(R.id.btnCancel);
-        tvID = findViewById(R.id.tvID);
-        tvSongT = findViewById(R.id.tvSongT);
-        tvSinger = findViewById(R.id.tvSinger);
-        tvYear = findViewById(R.id.tvYear);
-        tvStars = findViewById(R.id.tvStars);
-        etSinger = findViewById(R.id.etSinger);
-        etSongT = findViewById(R.id.etSongT);
-        etYear = findViewById(R.id.etYear);
-        radioGroup = findViewById(R.id.RadioGroup);
-
-
-        rg1 = findViewById(R.id.rg1);
-        rg2 = findViewById(R.id.rg2);
-        rg3 = findViewById(R.id.rg3);
-        rg4 = findViewById(R.id.rg4);
-        rg5 = findViewById(R.id.rg5);
-
-
-        //initialize the variables with UI here
 
         Intent i = getIntent();
-        data = (Songs) i.getSerializableExtra("data");
-        tvID.setText("Song ID : " +data.getId()+"");
+        data = (com.myapplicationdev.android.ndpsong.Songs) i.getSerializableExtra("data");
 
 
+        etId.setText("ID: " + data.get_id());
+        etSongTitle.setText(data.getTitle());
+        etSinger.setText(data.getSingers());
+        String editYear = Integer.toString(data.getYear());
+        etYear.setText(editYear);
+        int stars = data.getStars();
+        if(stars == 1){
+            star1.setChecked(true);
+        }else if(stars == 2) {
+            star2.setChecked(true);
+        }else if(stars == 3) {
+            star3.setChecked(true);
+        }else if(stars == 4) {
+            star4.setChecked(true);
+        }else if(stars == 5) {
+            star5.setChecked(true);
+        }
 
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
+        btnUpdate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 DBHelper dbh = new DBHelper(EditActivity.this);
+                data.setTitle(etSongTitle.getText().toString());
+                dbh.updateSongs(data);
+
                 data.setSingers(etSinger.getText().toString());
-                data.setTitle(etSongT.getText().toString());
-                data.setYear(Integer.parseInt(etYear.getText().toString()));
-                int rg = radioGroup.getCheckedRadioButtonId();
-                rg0 = findViewById(rg);
-                int rate = Integer.parseInt(rg0.getText().toString());
-                Log.d("result", rg0+"");
+                dbh.updateSongs(data);
 
-                data.setStars(rate);
+                int conetYear = parseInt(etYear.getText().toString());
+                data.setYear(conetYear);
+                dbh.updateSongs(data);
 
-                dbh.updateSong(data);
+                int radioId = radioGroup.getCheckedRadioButtonId();
+                rating = findViewById(radioId);
+                int conrating = parseInt(rating.getText().toString());
+                data.setStars(conrating);
+                dbh.updateSongs(data);
+
                 dbh.close();
-                finish();
+
+                Intent i = new Intent(EditActivity.this,
+                        ShowSong.class);
+                startActivity(i);
             }
         });
-
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DBHelper dbh = new DBHelper(EditActivity.this);
-                int id = data.getId();
-                Log.d("song id: ", id+"");
+                dbh.deleteNote(data.get_id());
 
-                dbh.deleteSong(data.getId());
-                finish();
-
+                Intent i = new Intent(EditActivity.this,
+                        ShowSong.class);
+                startActivity(i);
             }
         });
-
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                finish();
+            public void onClick(View view) {
+                Intent i = new Intent(EditActivity.this,
+                        ShowSong.class);
+                startActivity(i);
             }
         });
+
     }
+
+
 }
